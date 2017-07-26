@@ -37,13 +37,35 @@ class QuizKtActivity : AppCompatActivity()
         }
 
         next_button!!.setOnClickListener { v ->
-            mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.size
+            SetNextQuestionIndex()
+            updateQuestion()
+        }
+
+        prev_button!!.setOnClickListener { v ->
+            SetPrevQuestionIndex()
+            updateQuestion()
+        }
+
+        question_text_view!!.setOnClickListener { v ->
+            SetNextQuestionIndex()
             updateQuestion()
         }
 
         updateQuestion()
     }
 
+
+    private fun SetPrevQuestionIndex(){
+        mCurrentIndex -= 1
+        if( mCurrentIndex < 0 )
+            mCurrentIndex = mQuestionBank.size - 1
+    }
+
+
+    private fun SetNextQuestionIndex(){
+        mCurrentIndex = (mCurrentIndex + 1) % mQuestionBank.size
+
+    }
 
 
     private fun updateQuestion(){
