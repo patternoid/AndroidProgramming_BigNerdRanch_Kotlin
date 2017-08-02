@@ -9,6 +9,17 @@ import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_quiz.*
 
 
+
+/*Challenge
+  1. 사용자는 정답을 컨닝한 후에 커닝 결과를 지우기 위해 CheatActivity 화면에서
+  장치를 회전 시킬 수 있다
+
+  2. 커닝을 하고 돌아온 즉시 사용자는 QuizActivity 화면에서 장치를 회전시켜 mIsCheater
+  값을 지울 수 있다
+
+  3. 사용자는 자신이 커닝했던 질문이 다시 나타날 때까지 다음 버튼을 누를 수 있다
+*/
+
 /**
  * Created by patternoid on 2017. 7. 25..
  */
@@ -18,6 +29,7 @@ class QuizKtActivity : AppCompatActivity()
     companion object {
         private val TAG : String = "QuizKtActivity"
         private val KEY_INDEX : String = "index"
+        private val KEY_ISCHEATER : String = "is_cheater"
         private val REQUEST_CODE_CHEAT : Int = 0
     }
 
@@ -45,6 +57,7 @@ class QuizKtActivity : AppCompatActivity()
 
         savedInstanceState?.apply{
             mCurrentIndex = getInt(KEY_INDEX, 0)
+            mIsCheater    = getBoolean(KEY_ISCHEATER, false)
         }
 
 
@@ -80,6 +93,7 @@ class QuizKtActivity : AppCompatActivity()
         super.onSaveInstanceState(outState)
         Log.i( TAG, "onSaveInstanceState")
         outState!!.putInt( KEY_INDEX, mCurrentIndex!! )
+        outState!!.putBoolean( KEY_ISCHEATER, mIsCheater )
     }
 
 

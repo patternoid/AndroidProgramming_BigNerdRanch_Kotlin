@@ -12,6 +12,7 @@ class CheatActivity : AppCompatActivity() {
     companion object {
         private val EXTRA_ANSWER_IS_TRUE : String = "com.bignerdranch.android.geoquiz.answer_is_true"
         private val EXTRA_ANSWER_SHOWN : String = "com.bignerdranch.android.geoquiz.answer_shown"
+        private val KEY_IS_ANSWER_SHOWN : String = "isShown"
 
         fun newIntent(packageContext : Context, answerIsTrue : Boolean) : Intent {
             val intent : Intent = Intent( packageContext, CheatActivity::class.java)
@@ -26,7 +27,7 @@ class CheatActivity : AppCompatActivity() {
     }
 
     private var mAnswerIsTure : Boolean = false
-
+    private var mIsAnswerShown : Boolean = false
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,12 @@ class CheatActivity : AppCompatActivity() {
 
         mAnswerIsTure = intent.getBooleanExtra(EXTRA_ANSWER_IS_TRUE,false)
 
+        savedInstanceState?.let{
+            mIsAnswerShown = savedInstanceState!!.getBoolean(KEY_IS_ANSWER_SHOWN, false)
+            setAnswerShownResult(mIsAnswerShown)
+        }
+
+
         show_answer_button.setOnClickListener { v ->
             if( mAnswerIsTure ){
                 answer_text_view.setText(R.string.true_button)
@@ -42,8 +49,11 @@ class CheatActivity : AppCompatActivity() {
                 answer_text_view.setText(R.string.false_button)
             }
 
+            mIsAnswerShown = true
             setAnswerShownResult(true)
         }
+
+
     }
 
 
@@ -52,5 +62,12 @@ class CheatActivity : AppCompatActivity() {
         val data : Intent = Intent()
         data.putExtra( EXTRA_ANSWER_SHOWN, isAnswerShown)
         setResult(Activity.RESULT_OK, data)
+    }
+
+
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        outState?.putBoolean(KEY_IS_ANSWER_SHOWN, mIsAnswerShown)
     }
 }
