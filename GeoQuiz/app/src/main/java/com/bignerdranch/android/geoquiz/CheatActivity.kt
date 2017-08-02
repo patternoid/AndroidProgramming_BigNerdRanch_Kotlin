@@ -3,6 +3,7 @@ package com.bignerdranch.android.geoquiz
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_cheat.*
@@ -44,6 +45,8 @@ class CheatActivity : AppCompatActivity() {
 
             setAnswerShownResult(true)
         }
+
+        text_view_api_level.setText( "API 레벨 "+ Build.VERSION.SDK_INT)
     }
 
 
