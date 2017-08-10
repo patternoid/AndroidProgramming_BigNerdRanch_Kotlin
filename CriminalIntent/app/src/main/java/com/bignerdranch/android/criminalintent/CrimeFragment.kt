@@ -11,6 +11,7 @@ import android.widget.Button
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.EditText
+import java.text.DateFormat
 
 /**
  * Created by joonv on 2017-08-10.
@@ -48,8 +49,12 @@ class CrimeFragment : Fragment()
             }
         })
 
+
+        val foramt = android.text.format.DateFormat.format("EEE, MMMM mm, yyyy", mCrime!!.mDate)
+
+
         mDateButton = view.findViewById<Button>(R.id.crime_date)
-        mDateButton!!.setText( mCrime!!.mDate.toString() )
+        mDateButton!!.setText( foramt )
         mDateButton!!.isEnabled = false
 
         mSolvedCheckBox = view.findViewById<CheckBox>(R.id.crime_solved)
